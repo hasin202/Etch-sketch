@@ -4,9 +4,20 @@
     margin: 0;
 }
 
+.center-me {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
 .grid-container {
-    background-color: red;
+    border: 1px solid black;
     height: 400px;
     width: 400px;
+}
+
+.row {
+    display: flex;
+    flex-direction: col;
 }
