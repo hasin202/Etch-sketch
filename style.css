@@ -2,6 +2,8 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: 'Roboto', sans-serif;
+
 }
 
 .center-me {
@@ -12,13 +14,29 @@
 }
 
 .grid-container {
-    border: 1px solid black;
+    border: 0.1px solid black;
     height: 400px;
     width: 400px;
 }
 
-.row {
+.col {
     display: flex;
-    flex-direction: col;
+    flex-direction: column;
 }
 
+.row {
+    display: flex;
+}
+
+.gap-2em {
+    gap: 2em;
+}
+
+.gap-1em {
+    gap: 1em;
+}
+
+.title {
+    font-size: 7em;
+    margin:auto;
+}

@@ -4,6 +4,10 @@ const gridContainer = document.querySelector(".grid-container");
 //variable that stores the width of the grid container
 const gridWidth = gridContainer.offsetWidth;
 
+const wipeGrid = () => {
+  gridContainer.innerHTML = "";
+};
+
 //function used to create grid with the parameter being passed in being how many cells the user wants
 const createGrid = (numberOfCells) => {
   //create a div that is a colum which will each hold a row of cells.
@@ -34,15 +38,20 @@ const createGrid = (numberOfCells) => {
   gridContainer.appendChild(col);
 };
 
+//function to return a nodelist of all of the nodes that have an id of cell
 const selectCell = () => {
-  return (gridCells = document.querySelectorAll("#cells"));
-  // return gridCells;
+  return (cellQuerySelectAll = document.querySelectorAll("#cells"));
 };
 
 const setCellEventListners = () => {
-  const cellQuerySelectAll = selectCell();
-  cellQuerySelectAll.forEach((cell) => {
+  //variable to store the return value of the select cell function which is a nodelist containing all nodes with an id of cells
+  const gridCells = selectCell();
+  //executing foreach array method on node list to access each individual node calling each node "cell"
+  gridCells.forEach((cell) => {
+    //adding a 'mouseover' event listner to all of the 'cell's from the node list
     cell.addEventListener("mouseover", () => {
+      //because cell is already a node it can be styled however we want.
+      //whenever the mouse goes over a cell the callback function in the event listner is executed
       cell.style.backgroundColor = "red";
     });
   });
@@ -60,6 +69,10 @@ function ready(callback) {
 }
 
 ready(function () {
-  createGrid(20);
-  setCellEventListners();
+  const slider = document.getElementById("slider");
+  slider.oninput = function () {
+    wipeGrid();
+    createGrid(this.value);
+    setCellEventListners();
+  };
 });
