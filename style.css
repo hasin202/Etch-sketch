@@ -12,18 +12,12 @@
 }
 
 .grid-container {
-    border: 0.1px solid black;
-    height: 500px;
-    width: 500px;
-}
-
-.col {
-    display: flex;
-    flex-direction: column;
+    border: 1px solid black;
+    height: 400px;
+    width: 400px;
 }
 
 .row {
     display: flex;
+    flex-direction: col;
 }
-
-
