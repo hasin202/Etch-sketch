@@ -45,13 +45,22 @@ function ready(callback) {
     });
 }
 
-ready(function () {
-  createGrid(16);
+const selectCell = (cell) => {
+  console.log(cell);
+  cell.style.backgroundColor = "black";
+};
 
+const setCellEventListners = () => {
   const gridCells = document.querySelectorAll("#cells");
   gridCells.forEach((cell) => {
-    cell.addEventListener("mouseover", (event) => {
-      console.log(event);
+    cell.addEventListener("mouseover", () => {
+      selectCell(cell);
+      // console.log(cell);
     });
   });
+};
+
+ready(function () {
+  createGrid(13);
+  setCellEventListners();
 });
