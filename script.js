@@ -3,8 +3,10 @@ const gridContainer = document.querySelector(".grid-container");
 
 const createGrid = (width) => {
   for (let i = 0; i < width; i++) {
-    console.log(i);
+    const col = document.createElement("div");
+    col.style.cssText = "width:40px; height:40px; background-color: blue;";
+    gridContainer.appendChild(col);
   }
 };
 
-createGrid(10);
+createGrid(2);
