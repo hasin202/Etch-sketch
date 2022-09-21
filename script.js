@@ -34,6 +34,20 @@ const createGrid = (numberOfCells) => {
   gridContainer.appendChild(col);
 };
 
+const selectCell = () => {
+  return (gridCells = document.querySelectorAll("#cells"));
+  // return gridCells;
+};
+
+const setCellEventListners = () => {
+  const cellQuerySelectAll = selectCell();
+  cellQuerySelectAll.forEach((cell) => {
+    cell.addEventListener("mouseover", () => {
+      cell.style.backgroundColor = "red";
+    });
+  });
+};
+
 function ready(callback) {
   // in case the document is already rendered
   if (document.readyState != "loading") callback();
@@ -45,22 +59,7 @@ function ready(callback) {
     });
 }
 
-const selectCell = (cell) => {
-  console.log(cell);
-  cell.style.backgroundColor = "black";
-};
-
-const setCellEventListners = () => {
-  const gridCells = document.querySelectorAll("#cells");
-  gridCells.forEach((cell) => {
-    cell.addEventListener("mouseover", () => {
-      selectCell(cell);
-      // console.log(cell);
-    });
-  });
-};
-
 ready(function () {
-  createGrid(13);
+  createGrid(20);
   setCellEventListners();
 });
