@@ -4,6 +4,7 @@ const gridContainer = document.querySelector(".grid-container");
 //variable that stores the width of the grid container
 const gridWidth = gridContainer.offsetWidth;
 
+//function to wipe grid
 const wipeGrid = () => {
   gridContainer.innerHTML = "";
 };
@@ -31,6 +32,10 @@ const createGrid = (numberOfCells) => {
         gridWidth / numberOfCells
       }px; border: 0.1px solid black;`;
       cell.id = "cells";
+      cell.addEventListener("mouseover", () => {
+        //whenever the mouse goes over a cell the callback function in the event listner is executed
+        cell.style.backgroundColor = "black";
+      });
       row.appendChild(cell);
     }
     col.appendChild(row);
@@ -43,19 +48,19 @@ const selectCell = () => {
   return (cellQuerySelectAll = document.querySelectorAll("#cells"));
 };
 
-const setCellEventListners = () => {
-  //variable to store the return value of the select cell function which is a nodelist containing all nodes with an id of cells
-  const gridCells = selectCell();
-  //executing foreach array method on node list to access each individual node calling each node "cell"
-  gridCells.forEach((cell) => {
-    //adding a 'mouseover' event listner to all of the 'cell's from the node list
-    cell.addEventListener("mouseover", () => {
-      //because cell is already a node it can be styled however we want.
-      //whenever the mouse goes over a cell the callback function in the event listner is executed
-      cell.style.backgroundColor = "red";
-    });
-  });
-};
+// const setCellEventListners = () => {
+//   //variable to store the return value of the select cell function which is a nodelist containing all nodes with an id of cells
+//   const gridCells = selectCell();
+//   //executing foreach array method on node list to access each individual node calling each node "cell"
+//   gridCells.forEach((cell) => {
+//     //adding a 'mouseover' event listner to all of the 'cell's from the node list
+//     cell.addEventListener("mouseover", () => {
+//       //because cell is already a node it can be styled however we want.
+//       //whenever the mouse goes over a cell the callback function in the event listner is executed
+//       cell.style.backgroundColor = "red";
+//     });
+//   });
+// };
 
 function ready(callback) {
   // in case the document is already rendered
@@ -68,11 +73,26 @@ function ready(callback) {
     });
 }
 
+//function only runs once
 ready(function () {
+  //query selector for slider used to control grid size
   const slider = document.getElementById("slider");
-  slider.oninput = function () {
+  //need to orginally make the grid once by default as the code below only creates a grid once there is input on the slider
+  createGrid(1);
+  // setCellEventListners();
+
+  //event listner on the slider that executes the call back function inside whenver anyinput occurs on the slider
+  slider.addEventListener("input", () => {
+    //wipe the current grid so that the new grid does't just get added to the bottom of the current grid. Comment this line out
+    //and observe what happens when the slider is moved.
     wipeGrid();
-    createGrid(this.value);
-    setCellEventListners();
-  };
+    createGrid(slider.value);
+    // setCellEventListners();
+  });
+  //An alternative method to the event listner above
+  // slider.oninput = function () {
+  //   wipeGrid();
+  //   createGrid(this.value);
+  //   setCellEventListners();
+  // };
 });
