@@ -1,6 +1,15 @@
 //query selector for the grid container (the grids parent container)
 const gridContainer = document.querySelector(".grid-container");
 
+const colors = {
+  IndianRed: "CD5C5C",
+};
+
+// console.log(colors["IndianRed"]);
+document.querySelector(
+  "body"
+).style.backgroundColor = `#${colors["IndianRed"]}`;
+
 //variable that stores the width of the grid container
 const gridWidth = gridContainer.offsetWidth;
 
