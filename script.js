@@ -125,6 +125,7 @@ function ready(callback) {
 ready(function () {
   //query selector for slider used to control grid size
   const slider = document.getElementById("slider");
+
   //need to orginally make the grid once by default as the code below only creates a grid once there is input on the slider
   createGrid(1);
   // setCellEventListners();
@@ -132,6 +133,9 @@ ready(function () {
 
   //event listner on the slider that executes the call back function inside whenver anyinput occurs on the slider
   slider.addEventListener("input", () => {
+    const sliderValue = document.querySelector(".thumb-value");
+    console.log(sliderValue);
+    sliderValue.innerHTML = `${slider.value}`;
     //wipe the current grid so that the new grid does't just get added to the bottom of the current grid. Comment this line out
     //and observe what happens when the slider is moved.
     wipeGrid();

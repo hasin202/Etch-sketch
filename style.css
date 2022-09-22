@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    --thumbNumber: '5';
 
 }
 
@@ -94,19 +95,26 @@ button:hover {
     border-radius: 5px;
     background: #1682FF;
     cursor: pointer;
+ 
   }
+  .slider::-webkit-slider-thumb::before {
+  content: var(--thumbNumber);
+  }
+
+  .range-div {
+    display:flex;
+    align-items: center;
+    gap:0.25em;
+  }
+
 
   .colors-container {
     width: 270px;
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
-    grid-template-rows: repeat(auto-fit, 1fr);
-    gap: 10px */
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    row-gap:40px;
-    column-gap:30px ;
+    row-gap:30px;
+    column-gap:20px ;
     justify-content:center;
     align-items: center;
   }
