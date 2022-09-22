@@ -1,14 +1,23 @@
 //query selector for the grid container (the grids parent container)
 const gridContainer = document.querySelector(".grid-container");
 
+let cellColor = "black";
+
 const colors = {
-  IndianRed: "CD5C5C",
+  LightSalmon: "#FFA07A",
+  IndianRed: "#CD5C5C",
+  DarkRed: "#8B0000",
+  LightGreen: "#90EE90	",
+  MediumSpringGreen: "#00FA9A	",
+  MediumSeaGreen: "#3CB371",
+  paleTurquoise: "#40E0D0",
+  aqua: "#00FFFF",
+  SteelBlue: "#4682B4",
 };
 
-// console.log(colors["IndianRed"]);
-document.querySelector(
-  "body"
-).style.backgroundColor = `#${colors["IndianRed"]}`;
+// document.querySelector(
+//   "body"
+// ).style.backgroundColor = `#${colors["IndianRed"]}`;
 
 //variable that stores the width of the grid container
 const gridWidth = gridContainer.offsetWidth;
@@ -28,6 +37,10 @@ const resetGridColor = () => {
   gridCells.forEach((cell) => {
     cell.style.backgroundColor = "";
   });
+};
+
+const colorCell = (cell, color) => {
+  return (cell.style.backgroundColor = `${color}`);
 };
 
 //function used to create grid with the parameter being passed in being how many cells the user wants
@@ -55,13 +68,27 @@ const createGrid = (numberOfCells) => {
       cell.id = "cells";
       cell.addEventListener("mouseover", () => {
         //whenever the mouse goes over a cell the callback function in the event listner is executed
-        cell.style.backgroundColor = "black";
+        colorCell(cell, cellColor);
       });
       row.appendChild(cell);
     }
     col.appendChild(row);
   }
   gridContainer.appendChild(col);
+};
+
+const createColors = () => {
+  for (const colorName in colors) {
+    const color = document.createElement("div");
+    color.id = `${colorName}`;
+    color.style.cssText = `width:30px; height:30px; border-radius:50%; background-color:${colors[colorName]}; display:flex; justify-content:center;`;
+    color.addEventListener("click", () => {
+      console.log(color.id);
+      cellColor = `${colors[colorName]}`;
+    });
+    const colorContainer = document.querySelector(".colors-container");
+    colorContainer.appendChild(color);
+  }
 };
 
 // const setCellEventListners = () => {
@@ -96,6 +123,7 @@ ready(function () {
   //need to orginally make the grid once by default as the code below only creates a grid once there is input on the slider
   createGrid(1);
   // setCellEventListners();
+  createColors();
 
   //event listner on the slider that executes the call back function inside whenver anyinput occurs on the slider
   slider.addEventListener("input", () => {

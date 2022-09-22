@@ -6,11 +6,14 @@
 
 }
 
+.h-100vh {
+    height: 100vh;
+}
+
 .center-me {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
 .grid-container {
@@ -57,7 +60,7 @@ button:hover {
     font-size: 1.25rem;
 }
 
-.colors-container {
+.colors {
     height: 100%;
     background-color: rgba(210, 210, 210, 0.1);
     border-radius: 10px;
@@ -89,4 +92,20 @@ button:hover {
     background: #1682FF;
     cursor: pointer;
   }
+
+  .colors-container {
+    width: 270px;
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px */
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:52px;
+    justify-content:center;
+  }
   
+  .color-label {
+    justify-content: space-evenly;
+  }
