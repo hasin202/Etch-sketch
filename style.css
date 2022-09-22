@@ -40,3 +40,26 @@
     font-size: 7em;
     margin:auto;
 }
+
+button {
+    border:none;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #1682FF;
+    color:white;
+}
+
+button:hover {
+    background-color: #A0CCFF;
+}
+
+.input-label {
+    font-size: 1.25rem;
+}
+
+.colors-container {
+    height: 100%;
+    background-color: rgba(210, 210, 210, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+}
