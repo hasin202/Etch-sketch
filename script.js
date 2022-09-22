@@ -4,9 +4,21 @@ const gridContainer = document.querySelector(".grid-container");
 //variable that stores the width of the grid container
 const gridWidth = gridContainer.offsetWidth;
 
+//function to return a nodelist of all of the nodes that have an id of cell
+const selectCell = () => {
+  return (cellQuerySelectAll = document.querySelectorAll("#cells"));
+};
+
 //function to wipe grid
 const wipeGrid = () => {
   gridContainer.innerHTML = "";
+};
+
+const resetGridColor = () => {
+  const gridCells = selectCell();
+  gridCells.forEach((cell) => {
+    cell.style.backgroundColor = "";
+  });
 };
 
 //function used to create grid with the parameter being passed in being how many cells the user wants
@@ -41,11 +53,6 @@ const createGrid = (numberOfCells) => {
     col.appendChild(row);
   }
   gridContainer.appendChild(col);
-};
-
-//function to return a nodelist of all of the nodes that have an id of cell
-const selectCell = () => {
-  return (cellQuerySelectAll = document.querySelectorAll("#cells"));
 };
 
 // const setCellEventListners = () => {
@@ -88,6 +95,12 @@ ready(function () {
     wipeGrid();
     createGrid(slider.value);
     // setCellEventListners();
+  });
+
+  //event listner to reset all cells on grid to having no bg color
+  const reset = document.querySelector("button");
+  reset.addEventListener("click", () => {
+    resetGridColor();
   });
   //An alternative method to the event listner above
   // slider.oninput = function () {
