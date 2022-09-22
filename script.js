@@ -5,6 +5,10 @@ let cellColor = "black";
 
 //an object to store hex colors and their names
 const colors = {
+  White: "#FFFFFF",
+  Black: "#000000",
+  Red: "#FF2D00",
+  Blue: "#002BFF",
   LightSalmon: "#FFA07A",
   IndianRed: "#CD5C5C",
   DarkRed: "#8B0000",
@@ -79,6 +83,7 @@ const createColors = () => {
     //create div for each color
     const color = document.createElement("div");
     color.id = `${colorName}`;
+    color.classList.add("color");
     //styling for each color
     color.style.cssText = `width:30px; height:30px; border-radius:50%; background-color:${colors[colorName]}; display:flex; justify-content:center;`;
     //when user clicks on color changes global color var to hex color selected
