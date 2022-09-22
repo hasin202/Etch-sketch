@@ -3,6 +3,7 @@ const gridContainer = document.querySelector(".grid-container");
 
 let cellColor = "black";
 
+//an object to store hex colors and their names
 const colors = {
   LightSalmon: "#FFA07A",
   IndianRed: "#CD5C5C",
@@ -15,11 +16,6 @@ const colors = {
   SteelBlue: "#4682B4",
 };
 
-// document.querySelector(
-//   "body"
-// ).style.backgroundColor = `#${colors["IndianRed"]}`;
-
-//variable that stores the width of the grid container
 const gridWidth = gridContainer.offsetWidth;
 
 //function to return a nodelist of all of the nodes that have an id of cell
@@ -78,15 +74,19 @@ const createGrid = (numberOfCells) => {
 };
 
 const createColors = () => {
+  //for loop to get key in colors object
   for (const colorName in colors) {
+    //create div for each color
     const color = document.createElement("div");
     color.id = `${colorName}`;
+    //styling for each color
     color.style.cssText = `width:30px; height:30px; border-radius:50%; background-color:${colors[colorName]}; display:flex; justify-content:center;`;
+    //when user clicks on color changes global color var to hex color selected
     color.addEventListener("click", () => {
-      console.log(color.id);
       cellColor = `${colors[colorName]}`;
     });
     const colorContainer = document.querySelector(".colors-container");
+    //apend colors to the color container
     colorContainer.appendChild(color);
   }
 };
