@@ -32,43 +32,35 @@ const wipeGrid = () => {
   gridContainer.innerHTML = "";
 };
 
-const resetGridColor = () => {
-  const gridCells = selectCell();
-  gridCells.forEach((cell) => {
-    cell.style.backgroundColor = "";
-  });
-};
-
 const colorCell = (cell, color) => {
   return (cell.style.backgroundColor = `${color}`);
 };
 
-//function used to create grid with the parameter being passed in being how many cells the user wants
 const createGrid = (numberOfCells) => {
-  //create a div that is a colum which will each hold a row of cells.
   const col = document.createElement("div");
-  //setting the class for col so that it becomes a flex col (check css => col)
   col.className = "col";
 
-  //for loop used to append rows of cells to col div
   for (let y = 0; y < numberOfCells; y++) {
-    //create a div that will be a row of cells
     const row = document.createElement("div");
-    //setting the class for row so that it becomes a flex row (check css => row)
     row.className = "row";
-    //for loop used to append cells to row div
     for (let x = 0; x < numberOfCells; x++) {
-      //create a div that is the cell for the grid
       const cell = document.createElement("div");
-      //setting the styling for the cells
-      //width and height are set dynamicallt based on the grid containers width and how many cells the user wants
       cell.style.cssText = `width:${gridWidth / numberOfCells}px; height:${
         gridWidth / numberOfCells
-      }px; border: 0.1px solid black;`;
+      }px;`;
       cell.id = "cells";
-      cell.addEventListener("mouseover", () => {
-        //whenever the mouse goes over a cell the callback function in the event listner is executed
-        colorCell(cell, cellColor);
+      let mouseDown = false;
+      gridContainer.addEventListener("mousedown", () => {
+        mouseDown = true;
+        cell.addEventListener("mousemove", () => {
+          if (mouseDown) {
+            colorCell(cell, cellColor);
+          }
+        });
+      });
+      gridContainer.addEventListener("mouseup", () => {
+        console.log("up");
+        mouseDown = false;
       });
       row.appendChild(cell);
     }
@@ -76,39 +68,6 @@ const createGrid = (numberOfCells) => {
   }
   gridContainer.appendChild(col);
 };
-
-const createColors = () => {
-  //for loop to get key in colors object
-  for (const colorName in colors) {
-    //create div for each color
-    const color = document.createElement("div");
-    color.id = `${colorName}`;
-    color.classList.add("color");
-    //styling for each color
-    color.style.cssText = `width:30px; height:30px; border-radius:50%; background-color:${colors[colorName]}; display:flex; justify-content:center;`;
-    //when user clicks on color changes global color var to hex color selected
-    color.addEventListener("click", () => {
-      cellColor = `${colors[colorName]}`;
-    });
-    const colorContainer = document.querySelector(".colors-container");
-    //apend colors to the color container
-    colorContainer.appendChild(color);
-  }
-};
-
-// const setCellEventListners = () => {
-//   //variable to store the return value of the select cell function which is a nodelist containing all nodes with an id of cells
-//   const gridCells = selectCell();
-//   //executing foreach array method on node list to access each individual node calling each node "cell"
-//   gridCells.forEach((cell) => {
-//     //adding a 'mouseover' event listner to all of the 'cell's from the node list
-//     cell.addEventListener("mouseover", () => {
-//       //because cell is already a node it can be styled however we want.
-//       //whenever the mouse goes over a cell the callback function in the event listner is executed
-//       cell.style.backgroundColor = "red";
-//     });
-//   });
-// };
 
 function ready(callback) {
   // in case the document is already rendered
@@ -123,35 +82,14 @@ function ready(callback) {
 
 //function only runs once
 ready(function () {
-  //query selector for slider used to control grid size
   const slider = document.getElementById("slider");
 
-  //need to orginally make the grid once by default as the code below only creates a grid once there is input on the slider
   createGrid(1);
-  // setCellEventListners();
-  createColors();
 
-  //event listner on the slider that executes the call back function inside whenver anyinput occurs on the slider
   slider.addEventListener("input", () => {
     const sliderValue = document.querySelector(".thumb-value");
-    console.log(sliderValue);
     sliderValue.innerHTML = `${slider.value}`;
-    //wipe the current grid so that the new grid does't just get added to the bottom of the current grid. Comment this line out
-    //and observe what happens when the slider is moved.
     wipeGrid();
     createGrid(slider.value);
-    // setCellEventListners();
   });
-
-  //event listner to reset all cells on grid to having no bg color
-  const reset = document.querySelector("button");
-  reset.addEventListener("click", () => {
-    resetGridColor();
-  });
-  //An alternative method to the event listner above
-  // slider.oninput = function () {
-  //   wipeGrid();
-  //   createGrid(this.value);
-  //   setCellEventListners();
-  // };
 });
