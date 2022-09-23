@@ -1,7 +1,9 @@
 //query selector for the grid container (the grids parent container)
 const gridContainer = document.querySelector(".grid-container");
+const gridWidth = gridContainer.offsetWidth;
 
 let cellColor = "black";
+let mouseDown = false;
 
 //an object to store hex colors and their names
 const colors = {
@@ -20,27 +22,14 @@ const colors = {
   SteelBlue: "#4682B4",
 };
 
-const gridWidth = gridContainer.offsetWidth;
-
-//function to return a nodelist of all of the nodes that have an id of cell
-const selectCell = () => {
-  return (cellQuerySelectAll = document.querySelectorAll("#cells"));
-};
-
-//function to wipe grid
-const wipeGrid = () => {
-  gridContainer.innerHTML = "";
-};
-
-const resetGridColor = () => {
-  const gridCells = selectCell();
-  gridCells.forEach((cell) => {
-    cell.style.backgroundColor = "";
+const setGridContainerEventListener = () => {
+  gridContainer.addEventListener("mousedown", () => {
+    mouseDown = true;
   });
-};
-
-const colorCell = (cell, color) => {
-  return (cell.style.backgroundColor = `${color}`);
+  gridContainer.addEventListener("mouseup", () => {
+    console.log("down");
+    mouseDown = false;
+  });
 };
 
 //function used to create grid with the parameter being passed in being how many cells the user wants
@@ -67,28 +56,13 @@ const createGrid = (numberOfCells) => {
       }px; `;
       cell.id = "cells";
 
-      //var to store state of mouse
-      let mouseDown = false;
-      //event listener on whole grid to see if mouse is down on it (not just individual cells)
-      gridContainer.addEventListener("mousedown", () => {
-        mouseDown = true;
-        //event listener on each cell to see if mouse is over them
-        cell.addEventListener(
-          "mousemove",
-          () => {
-            console.log("move");
-            //whenever the mouse goes over a cell the callback function in the event listner is executed
-            //only if the mouse is down then will the the cells be colored
-            if (mouseDown) {
-              colorCell(cell, cellColor);
-            }
-          },
-          { capture: true }
-        );
-      });
-      gridContainer.addEventListener("mouseup", () => {
-        console.log("up");
-        mouseDown = false;
+      //event listener on each cell to see if mouse is over them
+      cell.addEventListener("mousemove", () => {
+        //whenever the mouse goes over a cell the callback function in the event listner is executed
+        //only if the mouse is down then will the the cells be colored
+        if (mouseDown) {
+          colorCell(cell, cellColor);
+        }
       });
 
       row.appendChild(cell);
@@ -115,6 +89,27 @@ const createColors = () => {
     //apend colors to the color container
     colorContainer.appendChild(color);
   }
+};
+
+//function to return a nodelist of all of the nodes that have an id of cell
+const selectCell = () => {
+  return (cellQuerySelectAll = document.querySelectorAll("#cells"));
+};
+
+const resetGridColor = () => {
+  const gridCells = selectCell();
+  gridCells.forEach((cell) => {
+    cell.style.backgroundColor = "";
+  });
+};
+
+//function to wipe grid
+const wipeGrid = () => {
+  gridContainer.innerHTML = "";
+};
+
+const colorCell = (cell, color) => {
+  return (cell.style.backgroundColor = `${color}`);
 };
 
 // const setCellEventListners = () => {
@@ -147,6 +142,7 @@ ready(function () {
   //query selector for slider used to control grid size
   const slider = document.getElementById("slider");
 
+  setGridContainerEventListener();
   //need to orginally make the grid once by default as the code below only creates a grid once there is input on the slider
   createGrid(1);
   // setCellEventListners();
@@ -163,15 +159,16 @@ ready(function () {
     // setCellEventListners();
   });
 
-  //event listner to reset all cells on grid to having no bg color
-  const reset = document.querySelector("button");
-  reset.addEventListener("click", () => {
-    resetGridColor();
-  });
   //An alternative method to the event listner above
   // slider.oninput = function () {
   //   wipeGrid();
   //   createGrid(this.value);
   //   setCellEventListners();
   // };
+
+  //event listner to reset all cells on grid to having no bg color
+  const reset = document.querySelector("button");
+  reset.addEventListener("click", () => {
+    resetGridColor();
+  });
 });
