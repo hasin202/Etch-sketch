@@ -2,25 +2,25 @@
 const gridContainer = document.querySelector(".grid-container");
 const gridWidth = gridContainer.offsetWidth;
 
-let cellColor = "black";
-let mouseDown = false;
-
 //an object to store hex colors and their names
 const colors = {
-  White: "#FFFFFF",
-  Black: "#000000",
-  Red: "#FF2D00",
-  Blue: "#002BFF",
-  LightSalmon: "#FFA07A",
-  IndianRed: "#CD5C5C",
-  DarkRed: "#8B0000",
-  LightGreen: "#90EE90	",
-  MediumSpringGreen: "#00FA9A	",
-  MediumSeaGreen: "#3CB371",
-  paleTurquoise: "#40E0D0",
-  aqua: "#00FFFF",
-  SteelBlue: "#4682B4",
+  WHITE: "#FFFFFF",
+  BLACK: "#000000",
+  RED: "#FF2D00",
+  BLUE: "#002BFF",
+  "LIGHT SALMON": "#FFA07A",
+  "INDIAN RED": "#CD5C5C",
+  "DARK RED": "#8B0000",
+  "LIGHT GREEN": "#90EE90	",
+  "MEDIUM SPRING GREEN": "#00FA9A	",
+  "MEDIUM SEA GREEN": "#3CB371",
+  "PALE TURQUOISE": "#40E0D0",
+  AQUA: "#00FFFF",
+  "STEEL BLUE": "#4682B4",
 };
+
+let cellColor = `${colors["BLACK"]}`;
+let mouseDown = false;
 
 const setGridContainerEventListener = () => {
   gridContainer.addEventListener("mousedown", () => {
@@ -72,10 +72,20 @@ const createGrid = (numberOfCells) => {
   gridContainer.appendChild(col);
 };
 
+const setColorName = (color) => {
+  const colorNameLabel = document.querySelector(".color-name");
+  const colors = document.querySelector(".colors");
+  const colorName = color.id;
+  colorNameLabel.textContent = ``;
+  colorNameLabel.textContent = `${colorName}`;
+  colors.appendChild(colorNameLabel);
+};
+
 const createColors = () => {
   //for loop to get key in colors object
   for (const colorName in colors) {
     //create div for each color
+    console.log(colorName);
     const color = document.createElement("div");
     color.id = `${colorName}`;
     color.classList.add("color");
@@ -84,6 +94,7 @@ const createColors = () => {
     //when user clicks on color changes global color var to hex color selected
     color.addEventListener("click", () => {
       cellColor = `${colors[colorName]}`;
+      setColorName(color);
     });
     const colorContainer = document.querySelector(".colors-container");
     //apend colors to the color container

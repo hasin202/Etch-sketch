@@ -128,3 +128,7 @@ button:hover {
     outline-offset: 2px;
     outline: 2px solid #1682FF;
   }
+
+  .color-name {
+    margin: auto;
+  }
