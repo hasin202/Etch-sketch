@@ -64,7 +64,7 @@ const createGrid = (numberOfCells) => {
       //width and height are set dynamicallt based on the grid containers width and how many cells the user wants
       cell.style.cssText = `width:${gridWidth / numberOfCells}px; height:${
         gridWidth / numberOfCells
-      }px; border: 0.1px solid black;`;
+      }px; `;
       cell.id = "cells";
       cell.addEventListener("mouseover", () => {
         //whenever the mouse goes over a cell the callback function in the event listner is executed
