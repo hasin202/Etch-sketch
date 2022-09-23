@@ -66,10 +66,31 @@ const createGrid = (numberOfCells) => {
         gridWidth / numberOfCells
       }px; `;
       cell.id = "cells";
-      cell.addEventListener("mouseover", () => {
-        //whenever the mouse goes over a cell the callback function in the event listner is executed
-        colorCell(cell, cellColor);
+
+      //var to store state of mouse
+      let mouseDown = false;
+      //event listener on whole grid to see if mouse is down on it (not just individual cells)
+      gridContainer.addEventListener("mousedown", () => {
+        mouseDown = true;
+        //event listener on each cell to see if mouse is over them
+        cell.addEventListener(
+          "mousemove",
+          () => {
+            console.log("move");
+            //whenever the mouse goes over a cell the callback function in the event listner is executed
+            //only if the mouse is down then will the the cells be colored
+            if (mouseDown) {
+              colorCell(cell, cellColor);
+            }
+          },
+          { capture: true }
+        );
       });
+      gridContainer.addEventListener("mouseup", () => {
+        console.log("up");
+        mouseDown = false;
+      });
+
       row.appendChild(cell);
     }
     col.appendChild(row);
@@ -134,7 +155,6 @@ ready(function () {
   //event listner on the slider that executes the call back function inside whenver anyinput occurs on the slider
   slider.addEventListener("input", () => {
     const sliderValue = document.querySelector(".thumb-value");
-    console.log(sliderValue);
     sliderValue.innerHTML = `${slider.value}`;
     //wipe the current grid so that the new grid does't just get added to the bottom of the current grid. Comment this line out
     //and observe what happens when the slider is moved.
